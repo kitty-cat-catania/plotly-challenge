@@ -15,7 +15,15 @@ function init() {
         var demoData = (Object.entries(metadata904)).forEach(([key, value]) => {
             var demoP = demoDiv.append("p");
             demoP.text(`${key}: ${value}`);
-        })
+        });
+        var barDiv = d3.select("#bar");
+        var samples = data.samples;
+        var sample904 = samples[0];
+        console.log(sample904);
+        var otu_ids904 = Object.values(sample904.otu_ids);
+        console.log(otu_ids904);
+        var sliced904otu_ids = otu_ids904.slice(0,10);
+        console.log(sliced904otu_ids);
     });
     
 }
