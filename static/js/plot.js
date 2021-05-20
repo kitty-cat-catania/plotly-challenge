@@ -16,7 +16,10 @@ function init() {
             var demoP = demoDiv.append("p");
             demoP.text(`${key}: ${value}`);
         });
-        var barDiv = d3.select("#bar");
+
+
+        //bar chart for init
+        
         var samples = data.samples;
         var sample904 = samples[0];
         console.log(sample904);
@@ -24,6 +27,21 @@ function init() {
         console.log(otu_ids904);
         var sliced904otu_ids = otu_ids904.slice(0,10);
         console.log(sliced904otu_ids);
+        var sampleValues904 = Object.values(sample904.sample_values);
+        var sampleValsSliced904 = sampleValues904.slice(0,10);
+        var otuLabels904 = Object.values(sample904.otu_labels);
+        var sliced904oLabels = otuLabels904.slice(0,10);
+        console.log(sliced904oLabels);
+
+        var firstbarY = sliced904otu_ids.map(item => `OTU ${item}`);
+        var bData = [{
+            type: 'bar',
+            x: sampleValsSliced904,
+            y: firstbarY,
+            orientation: 'h'
+        }];
+
+        Plotly.newPlot('bar', bData);
     });
     
 }
