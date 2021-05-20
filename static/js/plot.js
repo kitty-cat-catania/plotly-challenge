@@ -1,4 +1,4 @@
-function getDropdown() {
+function init() {
     d3.json("samples.json").then(function getNames(data) {
         var names = data.names;
         console.log(names);
@@ -8,11 +8,19 @@ function getDropdown() {
             idOption.text(name);
             idOption.attr("value", name);
             }));
+        var metadataDicts = data.metadata;
+        var metadata904 = metadataDicts[0];
+        console.log(metadata904);
+        var demoDiv = d3.select("#sample-metadata");
+        var demoData = (Object.entries(metadata904)).forEach(([key, value]) => {
+            var demoP = demoDiv.append("p");
+            demoP.text(`${key}: ${value}`);
+        })
     });
     
 }
 
-getDropdown();
+init();
 
 d3.selectAll("#selDataset").on("change", optionChanged);
 
