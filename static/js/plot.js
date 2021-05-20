@@ -14,11 +14,13 @@ function getDropdown() {
 
 getDropdown();
 
-/*
-var idOption = ddButton.append("option");
-idOption.text("Please work");
-idOption.attr("value", "ugh";)
-*/
+d3.selectAll("#selDataset").on("change", optionChanged);
+
+function optionChanged() {
+    var ddMenu = d3.select("#selDataset");
+    var selectedID = ddMenu.property("value");
+    console.log(selectedID);
+}
 
 
 
