@@ -42,6 +42,27 @@ function init() {
         }];
 
         Plotly.newPlot('bar', bData);
+
+        //Bubble chart 940 
+        var bubbbleTrace904 = {
+            x: otu_ids904,
+            y: sampleValues904,
+            mode: 'markers',
+            marker: {
+                size: sampleValues904
+            }
+
+        };
+
+        var bubData = [bubbbleTrace904];
+
+        var bubLayout = {
+            title: "Bacteria Cultures Per Sample",
+            showlegend: false
+
+        };
+
+        Plotly.newPlot('bubble', bubData, bubLayout);
     });
     
 }
