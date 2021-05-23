@@ -101,6 +101,13 @@ function optionChanged() {
             };
     };
     console.log(metaDataArr);
+    var demoInfoDiv = d3.select("#sample-metadata");
+    demoInfoDiv.html("");
+        var demoData = (Object.entries(metaDataArr)).forEach(([key, value]) => {
+            var demoP2 = demoInfoDiv.append("p");
+            demoP2.text(`${key}: ${value}`);
+        });
+
     });
 };
 
