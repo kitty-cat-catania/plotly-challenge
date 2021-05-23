@@ -119,6 +119,25 @@ function optionChanged() {
             };
         };
         console.log(sampleArr);
+        //build updated bar chart
+        var otu_idsAct = Object.values(sampleArr.otu_ids);
+        console.log(otu_idsAct);
+        var slicedActotu_ids = otu_idsAct.slice(0,10);
+        console.log(slicedActotu_ids);
+        var sampleValuesAct = Object.values(sampleArr.sample_values);
+        var sampleValsSlicedAct = sampleValuesAct.slice(0,10);
+        var otuLabelsAct = Object.values(sampleArr.otu_labels);
+        var slicedActoLabels = otuLabelsAct.slice(0,10);
+        console.log(slicedActoLabels);
+        var actY = slicedActotu_ids.map(item => `OTU ${item}`);
+        var bActData = [{
+            type: 'bar',
+            x: sampleValsSlicedAct,
+            y: actY,
+            orientation: 'h'
+        }];
+        var barDiv = d3.select("#bar");
+        barDiv.html("");
     });
 };
 
