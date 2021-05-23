@@ -1,19 +1,11 @@
 function init() {
-    d3.json("samples.json").then(function getNames(data) {
-        //work on making it interactive
-
+    d3.json("samples.json").then(function getData(data) {
+        
         
 
         var names = data.names;
-        var dict = [];
-        var nameDict = names.map(function(name, index) {
-            dict.push({
-                key: index,
-                value: name
-            });
-        });
 
-        console.log(dict);
+        console.log(names );
         var ddButton = d3.select("#selDataset");
         var ddOptions = names.forEach((function (name) {
             var idOption = ddButton.append("option");
@@ -21,10 +13,7 @@ function init() {
             idOption.attr("value", name);
             }));
         var metadataDicts = data.metadata;
-        var metadata904 = metadataDicts[0];
-        console.log(metadata904);
-        var demoDiv = d3.select("#sample-metadata");
-        var demoData = (Object.entries(metadata904)).forEach(([key, value]) => {
+        var demoData = (Object.entries(metadataDicts)).forEach(([key, value]) => {
             var demoP = demoDiv.append("p");
             demoP.text(`${key}: ${value}`);
         });
@@ -32,31 +21,10 @@ function init() {
 
         //bar chart for init
         
-        var samples = data.samples;
-        var sample904 = samples[0];
-        console.log(sample904);
-        var otu_ids904 = Object.values(sample904.otu_ids);
-        console.log(otu_ids904);
-        var sliced904otu_ids = otu_ids904.slice(0,10);
-        console.log(sliced904otu_ids);
-        var sampleValues904 = Object.values(sample904.sample_values);
-        var sampleValsSliced904 = sampleValues904.slice(0,10);
-        var otuLabels904 = Object.values(sample904.otu_labels);
-        var sliced904oLabels = otuLabels904.slice(0,10);
-        console.log(sliced904oLabels);
-
-        var firstbarY = sliced904otu_ids.map(item => `OTU ${item}`);
-        var bData = [{
-            type: 'bar',
-            x: sampleValsSliced904,
-            y: firstbarY,
-            orientation: 'h'
-        }];
-
-        Plotly.newPlot('bar', bData);
+        buildBar(data,0);
 
         //Bubble chart 940 
-        var bubbbleTrace904 = {
+        /*var bubbbleTrace904 = {
             x: otu_ids904,
             y: sampleValues904,
             mode: 'markers',
@@ -74,12 +42,43 @@ function init() {
 
         };
 
-        Plotly.newPlot('bubble', bubData, bubLayout);
+        Plotly.newPlot('bubble', bubData, bubLayout);*/
     });
     
 
    
 }
+
+function buildBarBubble(data, sampleIndex) {
+    var samples = data.samples;
+    var barSample = samples[sampleIndex];
+    console.log(barSample);
+    var barOtu_ids = Object.values(barSample.otu_ids);
+    console.log(barOtu_ids);
+    var slicedBarOtu_ids = barOtu_ids.slice(0,10);
+    console.log(slicedBarOtu_ids);
+    var sampleValues = Object.values(barSample.sample_values);
+    var sampleValsSliced = sampleValues.slice(0,10);
+    var otuLabelsBar = Object.values(barSample.otu_labels);
+    var slicedBarOLabels=otuLabelsBar.slice(0,10);
+    console.log(slicedBarOLabels);
+
+    var barY = slicedBarOtu_ids.map(item => `OTU ${item}`);
+    var bData = [{
+        type: 'bar',
+        x: sampleValsSliced,
+        y: barY,
+        orientation: 'h'
+    }];
+    Plotly.newPlot('bar',bData);
+};
+
+
+
+
+
+
+
 
 init();
 
@@ -94,9 +93,11 @@ function optionChanged() {
         var idNames = data.names;
         var metaDicts = data.metadata;
         var metaDataArr = [];
+        var arrIndex = 0;
         for (i=0; i<idNames.length ; i++) {
             if (selectedID == (metaDicts[i].id)) {
                 metaDataArr = metaDicts[i];
+                arrIndex = i;
                 break;
             };
         };
@@ -119,7 +120,7 @@ function optionChanged() {
             };
         };
         console.log(sampleArr);
-        //build updated bar chart
+        /*build updated bar chart
         var otu_idsAct = Object.values(sampleArr.otu_ids);
         console.log(otu_idsAct);
         var slicedActotu_ids = otu_idsAct.slice(0,10);
@@ -138,8 +139,7 @@ function optionChanged() {
         }];
         var barDiv = d3.select("#bar");
         barDiv.html("");
+        buildBar(data,)
+        */
     });
 };
-
-
-
