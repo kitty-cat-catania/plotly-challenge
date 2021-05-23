@@ -1,7 +1,19 @@
 function init() {
     d3.json("samples.json").then(function getNames(data) {
+        //work on making it interactive
+
+        
+
         var names = data.names;
-        console.log(names);
+        var dict = [];
+        var nameDict = names.map(function(name, index) {
+            dict.push({
+                key: index,
+                value: name
+            });
+        });
+
+        console.log(dict);
         var ddButton = d3.select("#selDataset");
         var ddOptions = names.forEach((function (name) {
             var idOption = ddButton.append("option");
@@ -65,17 +77,32 @@ function init() {
         Plotly.newPlot('bubble', bubData, bubLayout);
     });
     
+
+   
 }
 
 init();
 
 d3.selectAll("#selDataset").on("change", optionChanged);
 
+
 function optionChanged() {
-    var ddMenu = d3.select("#selDataset");
-    var selectedID = ddMenu.property("value");
-    console.log(selectedID);
-}
+    d3.json("samples.json").then(function getNames(data) {
+        var ddMenu = d3.select("#selDataset");
+        var selectedID = ddMenu.property("value");
+        console.log(selectedID);
+        var idNames = data.names;
+        var metaDicts = data.metadata;
+        var metaDataArr = [];
+        for (i=0; i<idNames.length ; i++) {
+            if (selectedID == (metaDicts[i].id)) {
+                metaDataArr = metaDicts[i];
+                break;
+            };
+    };
+    console.log(metaDataArr);
+    });
+};
 
 
 
