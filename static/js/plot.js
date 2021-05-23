@@ -13,7 +13,9 @@ function init() {
             idOption.attr("value", name);
             }));
         var metadataDicts = data.metadata;
-        var demoData = (Object.entries(metadataDicts)).forEach(([key, value]) => {
+        var meta904 = metadataDicts[0]
+        var demoDiv= d3.select("#sample-metadata");
+        var demoData = (Object.entries(meta904)).forEach(([key, value]) => {
             var demoP = demoDiv.append("p");
             demoP.text(`${key}: ${value}`);
         });
@@ -46,8 +48,8 @@ function init() {
     });
     
 
-   
-}
+//end of init() function  
+};
 
 function buildBarBubble(data, sampleIndex) {
     var samples = data.samples;
